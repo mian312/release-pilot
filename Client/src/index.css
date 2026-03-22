@@ -1,2 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #6366f1; /* Indigo-500 equivalent */
+  --color-primary-hover: #4f46e5;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 font-sans;
+}
