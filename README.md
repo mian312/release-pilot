@@ -1,128 +1,49 @@
 # ReleasePilot 🚀
 
-ReleasePilot is a lightweight release checklist tool designed to help developers manage and track their release process efficiently.
+ReleasePilot is a simple and effective tool designed to manage and track software releases. It helps developers keep their release process organized by providing a clear checklist and dynamic status tracking for every version they ship.
 
-## ✨ Features
+### Features
+* **Create releases**: Quickly add new release versions to your pipeline.
+* **View releases**: See all your planned and completed releases in one clean table.
+* **Track checklist steps**: Every release comes with a set of predefined steps to ensure nothing is missed.
+* **Automatic status**: The app automatically calculates if a release is **planned**, **ongoing**, or **done** based on your progress.
+* **Update additional info**: Add notes or extra context to any release whenever you need.
 
-* Create and manage releases
-* Track progress using checklist steps
-* Automatic release status:
+### Tech Stack
+* **Frontend**: React (Vite) + Tailwind CSS
+* **Backend**: Node.js + Express
+* **Database**: PostgreSQL with Prisma ORM
 
-  * Planned
-  * Ongoing
-  * Done
-* Update release notes / additional information
+### Project Structure
+* `client`: The React frontend where you manage your releases.
+* `server`: The Express backend handling data and database communication.
 
-## 🏗️ Tech Stack
+### Setup Instructions
 
-**Frontend**
+#### Backend
+1. Go to the `server` folder.
+2. Run `npm install` to get the dependencies.
+3. Create a `.env` file and add your `DATABASE_URL`.
+4. Run `npx prisma migrate dev` to set up your database.
+5. Start the server with `npm run dev` (or `node src/index.js`).
 
-* React (Vite)
-* Tailwind CSS
+#### Frontend
+1. Go to the `client` folder.
+2. Run `npm install`.
+3. Start the dev server with `npm run dev`.
 
-**Backend**
+### API Endpoints
+* `GET /api/releases`: Fetch all releases.
+* `POST /api/releases`: Create a new release.
+* `PATCH /api/releases/:id`: Update additional info for a release.
+* `PATCH /api/releases/:id/steps`: Update the status of checklist steps.
 
-* Node.js
-* Express
+### Database Design
+The project uses a simple **Release** model. Instead of complex relational tables for steps, they are stored as a **Json array** directly inside the release record. This keeps things fast and easy to manage. The release status isn't stored in the DB—it's calculated on the fly:
+* No steps completed? **Planned**.
+* Some steps completed? **Ongoing**.
+* All steps completed? **Done**.
 
-**Database**
-
-* PostgreSQL (hosted online)
-
-**ORM**
-
-* Prisma
-
----
-
-## 📁 Project Structure
-
-```
-release-pilot/
-├── client/     # Frontend (React)
-├── server/     # Backend (Express + Prisma)
-└── README.md
-```
-
----
-
-## ⚙️ Getting Started
-
-### 1. Clone the repository
-
-```
-git clone https://github.com/YOUR_USERNAME/release-pilot.git
-cd release-pilot
-```
-
----
-
-### 2. Setup Backend
-
-```
-cd server
-npm install
-```
-
-Create a `.env` file:
-
-```
-DATABASE_URL="your_postgresql_connection_string"
-```
-
-Run:
-
-```
-npx prisma migrate dev
-node src/index.js
-```
-
----
-
-### 3. Setup Frontend
-
-```
-cd client
-npm install
-npm run dev
-```
-
----
-
-## 🔌 API Endpoints (To be implemented)
-
-* `GET /releases`
-* `POST /releases`
-* `PATCH /releases/:id`
-* `PATCH /releases/:id/steps`
-
----
-
-## 🗄️ Database Schema (Planned)
-
-* Release
-
-  * id
-  * name
-  * date
-  * status (computed)
-  * additionalInfo
-  * steps (boolean array / JSON)
-
----
-
-## 🚀 Deployment
-
-* Frontend: Vercel
-* Backend: Render
-* Database: Render PostgreSQL
-
----
-
-## 📌 Notes
-
-* This is a single-user application
-* Steps are fixed and shared across all releases
-* Status is computed dynamically based on steps
-
----
+### Deployment
+* **Frontend**: Optimized for hosting on **Vercel**.
+* **Backend + DB**: Can be easily deployed on **Render**.
