@@ -64,8 +64,7 @@ const App: React.FC = () => {
   const handleDeleteRelease = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this release?')) return;
     try {
-      const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000';
-      await fetch(`${API_URL}/releases/${id}`, { method: 'DELETE' });
+      await api.deleteRelease(id);
       fetchReleases();
       setView('list');
       setSelectedRelease(null);

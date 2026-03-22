@@ -62,3 +62,9 @@ export const updateReleaseSteps = async (id, steps) => {
     status: computeStatus(release.steps),
   };
 };
+
+export const deleteRelease = async (id) => {
+  await prisma.release.delete({
+    where: { id: parseInt(id) },
+  });
+};

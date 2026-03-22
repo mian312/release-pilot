@@ -33,6 +33,19 @@ export const updateReleaseInfo = async (req, res) => {
   }
 };
 
+export const deleteRelease = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await releaseService.deleteRelease(id);
+    res.status(204).send();
+  } catch (error) {
+    if (error.code === "P2025") {
+      return res.status(404).json({ error: "Release not found" });
+    }
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export const updateReleaseSteps = async (req, res) => {
   try {
     const { id } = req.params;
